@@ -37,6 +37,7 @@ from Components.config import getConfigListEntry, ConfigText, ConfigSubsection, 
 from Components.Pixmap import Pixmap
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from xml.etree.cElementTree import fromstring as cet_fromstring
+from lxml import objectify
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
@@ -674,149 +675,96 @@ class WeatherMSN(ConfigListScreen, Screen):
 
 	def parse_weather_data(self):
 		self.forecast = []
-		for line in open("/tmp/weathermsn1.xml"):
-			try:
-				if "<weather" in line:
-					self.location['Location'] = line.split('weatherlocationname')[1].split('"')[1].split(',')[0]
-					if not line.split('timezone')[1].split('"')[1][0] is '0':
-						timezone = '%s' % float(line.split('timezone')[1].split('"')[1])
-						self.timezone['Timezone'] = '+' + line.split('timezone')[1].split('"')[1]
-					else:
-						timezone = '%s' % float(line.split('timezone')[1].split('"')[1])
-						self.timezone['Timezone'] = line.split('timezone')[1].split('"')[1]
-					self.latitude['Latitude'] = latitude = line.split(' latitude')[1].split('"')[1].replace(',', '.')
-					self.longitude['Longitude'] = longitude = line.split(' long')[1].split('"')[1].replace(',', '.')
-					self.observationtime['Time'] = line.split('observationtime')[1].split('"')[1]
-					self.observationpoint['Point'] = line.split('observationpoint')[1].split('"')[1]
-					self.attribution['Attribution'] = line.split('attribution')[1].split('"')[1]
-				if "<current" in line:
-					if not line.split('temperature')[1].split('"')[1][0] is '-' and not line.split('temperature')[1].split('"')[1][0] is '0':
-						self.temperature['Temperature'] = '+' + line.split('temperature')[1].split('"')[1]
-					else:
-						self.temperature['Temperature'] = line.split('temperature')[1].split('"')[1]
-					if not line.split('feelslike')[1].split('"')[1][0] is '-' and not line.split('feelslike')[1].split('"')[1][0] is '0':
-						self.feelslike['Feelslike'] = '+' + line.split('feelslike')[1].split('"')[1]
-					else:
-						self.feelslike['Feelslike'] = line.split('feelslike')[1].split('"')[1]
-					self.pic['Pic'] = line.split('skycode')[1].split('"')[1]
-					self.skytext['Skytext'] = line.split('skytext')[1].split('"')[1]
-					self.humidity['Humidity'] = line.split('humidity')[1].split('"')[1]
-					try:
-						self.wind['Wind'] = line.split('winddisplay')[1].split('"')[1].split(' ')[2]
-					except:
-						pass
-# m/s
-					if self.windtype == 'ms' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'm/s':
-						self.windspeed['Windspeed'] = _('%s m/s') % line.split('windspeed')[1].split('"')[1].split(' ')[0]
-					elif self.windtype == 'ms' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'km/h':
-						self.windspeed['Windspeed'] = _('%.01f m/s') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 0.28)
-					elif self.windtype == 'ms' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'mph':
-						self.windspeed['Windspeed'] = _('%.01f m/s') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 0.45)
-# ft/s
-					elif self.windtype == 'fts' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'm/s':
-						self.windspeed['Windspeed']= _('%.01f ft/s') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 3.28)
-					elif self.windtype == 'fts' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'km/h':
-						self.windspeed['Windspeed']= _('%.01f ft/s') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 0.91)
-					elif self.windtype == 'ms' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'mph':
-						self.windspeed['Windspeed'] = _('%.01f ft/s') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 1.47)
-# mp/h
-					elif self.windtype == 'mph' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'm/s':
-						self.windspeed['Windspeed'] = _('%.01f mp/h') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 2.24)
-					elif self.windtype == 'mph' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'km/h':
-						self.windspeed['Windspeed'] = _('%.01f mp/h') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 0.62)
-					elif self.windtype == 'ms' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'mph':
-						self.windspeed['Windspeed'] =  _('%s mp/h') % line.split('windspeed')[1].split('"')[1].split(' ')[0]
-# knots
-					elif self.windtype == 'knots' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'm/s':
-						self.windspeed['Windspeed'] = _('%.01f knots') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 1.94)
-					elif self.windtype == 'knots' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'km/h':
-						self.windspeed['Windspeed'] = _('%.01f knots') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 0.54)
-					elif self.windtype == 'ms' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'mph':
-						self.windspeed['Windspeed'] = _('%.01f knots') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 0.87)
-# km/h
-					elif self.windtype == 'kmh' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'm/s':
-						self.windspeed['Windspeed'] = _('%.01f km/h') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 3.6)
-					elif self.windtype == 'kmh' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'km/h':
-						self.windspeed['Windspeed'] = _('%s km/h') % line.split('windspeed')[1].split('"')[1].split(' ')[0]
-					elif self.windtype == 'ms' and line.split('windspeed')[1].split('"')[1].split(' ')[1] == 'mph':
-						self.windspeed['Windspeed'] = _('%.01f km/h') % (float(line.split('windspeed')[1].split('"')[1].split(' ')[0]) * 1.61)
-# День 0
-				if "<forecast" in line:
-					if not line.split('low')[1].split('"')[1][0] is '-' and not line.split('low')[1].split('"')[1][0] is '0':
-						self.lowtemp0['Lowtemp0'] = '+' + line.split('low')[1].split('"')[1]
-					else:
-						self.lowtemp0['Lowtemp0'] = line.split('low')[1].split('"')[1]
-					if not line.split('high')[1].split('"')[1][0] is '-' and not line.split('high')[1].split('"')[1][0] is '0':
-						self.hightemp0['Hightemp0'] = '+' + line.split('high')[1].split('"')[1]
-					else:
-						self.hightemp0['Hightemp0'] = line.split('high')[1].split('"')[1]
-					self.pic0['Pic0'] = line.split('skycodeday')[1].split('"')[1]
-					self.date0['Date0'] = line.split('date')[2].split('"')[1].split('-')[2].strip() + '.' + line.split('date')[2].split('"')[1].split('-')[1].strip() + '.' + line.split('date')[2].split('"')[1].split('-')[0].strip()
-					self.day0['Day0'] = line.split(' day')[2].split('"')[1]
-					self.skytext0['Skytext0'] = line.split('skytextday')[1].split('"')[1]
-					self.precip0['Precip0'] = line.split('precip')[1].split('"')[1]
-# День 1
-				if "<forecast" in line:
-					if not line.split('low')[2].split('"')[1][0] is '-' and not line.split('low')[2].split('"')[1][0] is '0':
-						self.lowtemp1['Lowtemp1'] = '+' + line.split('low')[2].split('"')[1]
-					else:
-						self.lowtemp1['Lowtemp1'] = line.split('low')[2].split('"')[1]
-					if not line.split('high')[2].split('"')[1][0] is '-' and not line.split('high')[2].split('"')[1][0] is '0':
-						self.hightemp1['Hightemp1'] = '+' + line.split('high')[2].split('"')[1]
-					else:
-						self.hightemp1['Hightemp1'] = line.split('high')[2].split('"')[1]
-					self.pic1['Pic1'] = line.split('skycodeday')[2].split('"')[1]
-					self.date1['Date1'] = line.split('date')[3].split('"')[1].split('-')[2].strip() + '.' + line.split('date')[3].split('"')[1].split('-')[1].strip() + '.' + line.split('date')[3].split('"')[1].split('-')[0].strip()
-					self.day1['Day1'] = line.split(' day')[3].split('"')[1]
-					self.skytext1['Skytext1'] = line.split('skytextday')[2].split('"')[1]
-					self.precip1['Precip1'] = line.split('precip')[2].split('"')[1]
-# День 2
-				if "<forecast" in line:
-					if not line.split('low')[3].split('"')[1][0] is '-' and not line.split('low')[3].split('"')[1][0] is '0':
-						self.lowtemp2['Lowtemp2'] = '+' + line.split('low')[3].split('"')[1]
-					else:
-						self.lowtemp2['Lowtemp2'] = line.split('low')[3].split('"')[1]
-					if not line.split('high')[3].split('"')[1][0] is '-' and not line.split('high')[3].split('"')[1][0] is '0':
-						self.hightemp2['Hightemp2'] = '+' + line.split('high')[3].split('"')[1]
-					else:
-						self.hightemp2['Hightemp2'] = line.split('high')[3].split('"')[1]
-					self.pic2['Pic2'] = line.split('skycodeday')[3].split('"')[1]
-					self.date2['Date2'] = line.split('date')[4].split('"')[1].split('-')[2].strip() + '.' + line.split('date')[4].split('"')[1].split('-')[1].strip() + '.' + line.split('date')[4].split('"')[1].split('-')[0].strip()
-					self.day2['Day2'] = line.split(' day')[4].split('"')[1]
-					self.skytext2['Skytext2'] = line.split('skytextday')[3].split('"')[1]
-					self.precip2['Precip2'] = line.split('precip')[3].split('"')[1]
-# День 3
-				if "<forecast" in line:
-					if not line.split('low')[4].split('"')[1][0] is '-' and not line.split('low')[4].split('"')[1][0] is '0':
-						self.lowtemp3['Lowtemp3'] = '+' + line.split('low')[4].split('"')[1]
-					else:
-						self.lowtemp3['Lowtemp3'] = line.split('low')[4].split('"')[1]
-					if not line.split('high')[4].split('"')[1][0] is '-' and not line.split('high')[4].split('"')[1][0] is '0':
-						self.hightemp3['Hightemp3'] = '+' + line.split('high')[4].split('"')[1]
-					else:
-						self.hightemp3['Hightemp3'] = line.split('high')[4].split('"')[1]
-					self.pic3['Pic3'] = line.split('skycodeday')[4].split('"')[1]
-					self.date3['Date3'] = line.split('date')[5].split('"')[1].split('-')[2].strip() + '.' + line.split('date')[5].split('"')[1].split('-')[1].strip() + '.' + line.split('date')[5].split('"')[1].split('-')[0].strip()
-					self.day3['Day3'] = line.split(' day')[5].split('"')[1]
-					self.skytext3['Skytext3'] = line.split('skytextday')[4].split('"')[1]
-					self.precip3['Precip3'] = line.split('precip')[4].split('"')[1]
-# День 4
-				if "<forecast" in line:
-					if not line.split('low')[5].split('"')[1][0] is '-' and not line.split('low')[5].split('"')[1][0] is '0':
-						self.lowtemp4['Lowtemp4'] = '+' + line.split('low')[5].split('"')[1]
-					else:
-						self.lowtemp4['Lowtemp4'] = line.split('low')[5].split('"')[1]
-					if not line.split('high')[5].split('"')[1][0] is '-' and not line.split('high')[5].split('"')[1][0] is '0':
-						self.hightemp4['Hightemp4'] = '+' + line.split('high')[5].split('"')[1]
-					else:
-						self.hightemp4['Hightemp4'] = line.split('high')[5].split('"')[1]
-					self.pic4['Pic4'] = line.split('skycodeday')[5].split('"')[1]
-					self.date4['Date4'] = line.split('date')[6].split('"')[1].split('-')[2].strip() + '.' + line.split('date')[6].split('"')[1].split('-')[1].strip() + '.' + line.split('date')[6].split('"')[1].split('-')[0].strip()
-					self.day4['Day4'] = line.split(' day')[6].split('"')[1]
-					self.skytext4['Skytext4'] = line.split('skytextday')[5].split('"')[1]
-					self.precip4['Precip4'] = line.split('precip')[5].split('"')[1]
-			except:
-				pass
+		try:
+			tree = objectify.fromstring(open("/tmp/weathermsn1.xml", encoding="UTF-8").read())
+
+			self.location['Location'] = tree.weather.attrib['weatherlocationname'].split(',')[0]
+			timezone = float(tree.weather.attrib['timezone'])
+			self.timezone['Timezone'] = '+' + tree.weather.attrib['timezone'] if timezone > 0 else tree.weather.attrib['timezone']
+			self.latitude['Latitude'] = latitude = tree.weather.attrib['lat'].replace(',', '.')
+			self.longitude['Longitude'] = longitude = tree.weather.attrib['long'].replace(',', '.')
+
+			self.observationtime['Time'] = tree.weather.current.attrib['observationtime']
+			self.observationpoint['Point'] = tree.weather.current.attrib['observationpoint']
+			self.attribution['Attribution'] = tree.weather.attrib['attribution']
+
+			temperature = float(tree.weather.current.attrib['temperature'])
+			self.temperature['Temperature'] = '+' + tree.weather.current.attrib['temperature'] if temperature > 0 else tree.weather.current.attrib['temperature']
+			feelslike = float(tree.weather.current.attrib['feelslike'])
+			self.feelslike['Feelslike'] = '+' + tree.weather.current.attrib['feelslike'] if feelslike > 0 else tree.weather.current.attrib['feelslike']
+			self.pic['Pic'] = tree.weather.current.attrib['skycode']
+			self.skytext['Skytext'] = tree.weather.current.attrib['skytext']
+			self.humidity['Humidity'] = tree.weather.current.attrib['humidity']
+			self.wind['Wind'] = tree.weather.current.attrib.get('winddisplay', '')
+
+			_windspeed, _windtype = tree.weather.current.attrib.get('windspeed').split(' ')
+			_windconv = {
+				'ms_m/s': (1.0, _('%.01f ft/s')), 'ms_km/h': (0.28, _('%.01f ft/s')), 'ms_mph': (0.45, _('%.01f ft/s')),
+				'fts_m/s': (3.28, _('%.01f mp/h')), 'fts_km/h': (0.91, _('%.01f mp/h')), 'fts_mph': (1.47, _('%.01f mp/h')),
+				'mph_m/s': (2.24, _('%.01f mp/h')), 'mph_km/h': (0.62, _('%.01f mp/h')), 'mph_mph': (1.0, _('%.01f mp/h')),
+				'knots_m/s': (1.94, _('%.01f knots')), 'knots_km/h': (0.54, _('%.01f knots')), 'knots_mph': (0.87, _('%.01f knots')),
+				'kmh_m/s': (3.6, _('%.01f km/h')), 'kmh_km/h': (1.0, _('%.01f km/h')), 'kmh_mph': (1.61, _('%.01f km/h')),
+			}
+			_conv = _windconv.get(self.windtype + '_' + _windtype)
+			if _conv:
+				self.windspeed['Windspeed'] = _conv[1] % (float(_windspeed) * _conv[0])
+			else:
+				self.windspeed['Windspeed'] = tree.weather.current.attrib.get('windspeed')
+				print("[WeatherMSN] Please fix %s to %s convertion for %s" % (self.windtype, _windtype, self.windspeed['Windspeed']))
+
+			temp = float(tree.weather.forecast[0].attrib['low'])
+			self.lowtemp0['Lowtemp0'] = '+' + tree.weather.forecast[0].attrib['low'] if temp > 0 else tree.weather.forecast[0].attrib['low']
+			temp = float(tree.weather.forecast[0].attrib['high'])
+			self.hightemp0['Hightemp0'] = '+' + tree.weather.forecast[0].attrib['high'] if temp > 0 else tree.weather.forecast[0].attrib['high']
+			self.pic0['Pic0'] = tree.weather.forecast[0].attrib['skycodeday']
+			self.date0['Date0'] = tree.weather.forecast[0].attrib['date'] # TODO: format from yyyy-mm-dd to UI date?
+			self.day0['Day0'] = tree.weather.forecast[0].attrib['day']
+			self.skytext0['Skytext0'] = tree.weather.forecast[0].attrib['skytextday']
+			self.precip0['Precip0'] = tree.weather.forecast[0].attrib['precip']
+
+			temp = float(tree.weather.forecast[1].attrib['low'])
+			self.lowtemp1['Lowtemp1'] = '+' + tree.weather.forecast[1].attrib['low'] if temp > 0 else tree.weather.forecast[1].attrib['low']
+			temp = float(tree.weather.forecast[1].attrib['high'])
+			self.hightemp1['Hightemp1'] = '+' + tree.weather.forecast[1].attrib['high'] if temp > 0 else tree.weather.forecast[1].attrib['high']
+			self.pic1['Pic1'] = tree.weather.forecast[1].attrib['skycodeday']
+			self.date1['Date1'] = tree.weather.forecast[1].attrib['date'] # TODO: format from yyyy-mm-dd to UI date?
+			self.day1['Day1'] = tree.weather.forecast[1].attrib['day']
+			self.skytext1['Skytext1'] = tree.weather.forecast[1].attrib['skytextday']
+			self.precip1['Precip1'] = tree.weather.forecast[1].attrib['precip']
+
+			temp = float(tree.weather.forecast[2].attrib['low'])
+			self.lowtemp2['Lowtemp2'] = '+' + tree.weather.forecast[2].attrib['low'] if temp > 0 else tree.weather.forecast[2].attrib['low']
+			temp = float(tree.weather.forecast[2].attrib['high'])
+			self.hightemp2['Hightemp2'] = '+' + tree.weather.forecast[2].attrib['high'] if temp > 0 else tree.weather.forecast[2].attrib['high']
+			self.pic2['Pic2'] = tree.weather.forecast[2].attrib['skycodeday']
+			self.date2['Date2'] = tree.weather.forecast[2].attrib['date'] # TODO: format from yyyy-mm-dd to UI date?
+			self.day2['Day2'] = tree.weather.forecast[2].attrib['day']
+			self.skytext2['Skytext2'] = tree.weather.forecast[2].attrib['skytextday']
+			self.precip2['Precip2'] = tree.weather.forecast[2].attrib['precip']
+
+			temp = float(tree.weather.forecast[3].attrib['low'])
+			self.lowtemp3['Lowtemp3'] = '+' + tree.weather.forecast[3].attrib['low'] if temp > 0 else tree.weather.forecast[3].attrib['low']
+			temp = float(tree.weather.forecast[3].attrib['high'])
+			self.hightemp3['Hightemp3'] = '+' + tree.weather.forecast[3].attrib['high'] if temp > 0 else tree.weather.forecast[3].attrib['high']
+			self.pic3['Pic3'] = tree.weather.forecast[3].attrib['skycodeday']
+			self.date3['Date3'] = tree.weather.forecast[3].attrib['date'] # TODO: format from yyyy-mm-dd to UI date?
+			self.day3['Day3'] = tree.weather.forecast[3].attrib['day']
+			self.skytext3['Skytext3'] = tree.weather.forecast[3].attrib['skytextday']
+			self.precip3['Precip3'] = tree.weather.forecast[3].attrib['precip']
+
+			temp = float(tree.weather.forecast[4].attrib['low'])
+			self.lowtemp4['Lowtemp4'] = '+' + tree.weather.forecast[4].attrib['low'] if temp > 0 else tree.weather.forecast[4].attrib['low']
+			temp = float(tree.weather.forecast[4].attrib['high'])
+			self.hightemp4['Hightemp4'] = '+' + tree.weather.forecast[4].attrib['high'] if temp > 0 else tree.weather.forecast[4].attrib['high']
+			self.pic4['Pic4'] = tree.weather.forecast[4].attrib['skycodeday']
+			self.date4['Date4'] = tree.weather.forecast[4].attrib['date'] # TODO: format from yyyy-mm-dd to UI date?
+			self.day4['Day4'] = tree.weather.forecast[4].attrib['day']
+			self.skytext4['Skytext4'] = tree.weather.forecast[4].attrib['skytextday']
+			self.precip4['Precip4'] = tree.weather.forecast[4].attrib['precip']
+		except Exception as e:
+			print("[WeatherMSN] Error during xml parsing. Error: %s" % e)
+			pass
+
 # Астро
 		PI = 3.14159265359
 		DEG2RAD = PI / 180 # радианы
@@ -2849,7 +2797,8 @@ class SearchLocationMSN(Screen):
 	def showMenu(self):
 		try:
 			results = search_title(self.eventname)
-		except:
+		except Exception as e:
+			print("[WeatherMSN] Error during search title. Error: %s" % e)
 			results = []
 		if len(results) == 0:
 			return False
@@ -2869,7 +2818,7 @@ class SearchLocationMSN(Screen):
 			self.close()
 
 def search_title(id):
-	url = "http://weather.service.msn.com/find.aspx?outputview=search&weasearchstr=%s&culture=en-US&src=outlook" % id
+	url = "http://weather.service.msn.com/find.aspx?outputview=search&weasearchstr=%s&culture=en-US&src=outlook" % quote(id)
 	watchrequest = Request(url)
 	try:
 		watchvideopage = urlopen(watchrequest)
