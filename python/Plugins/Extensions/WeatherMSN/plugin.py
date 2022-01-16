@@ -117,36 +117,36 @@ if getDesktop(0).size().width() >= 1920: #FHD
 			<widget source="mercuryrise" render="Label" position="220,485" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="mercuryset" render="Label" position="390,486" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="mercuryculmination" render="Label" position="560,485" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="mercuryazimuth" render="Label" position="730,485" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="mercuryazimuth" render="Label" position="730,485" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="venusset" render="Label" position="390,520" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="venusrise" render="Label" position="220,520" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="venusculmination" render="Label" position="560,520" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="venusazimuth" render="Label" position="730,520" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="venusazimuth" render="Label" position="730,520" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="marsrise" render="Label" position="220,555" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="marsset" render="Label" position="390,555" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="marsculmination" render="Label" position="560,555" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="marsazimuth" render="Label" position="730,555" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="marsazimuth" render="Label" position="730,555" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="jupiterrise" render="Label" position="220,590" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="jupiterset" render="Label" position="390,590" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="jupiterculmination" render="Label" position="560,590" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="jupiterazimuth" render="Label" position="730,590" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="jupiterazimuth" render="Label" position="730,590" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="saturnrise" render="Label" position="220,625" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="saturnset" render="Label" position="390,625" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="saturnculmination" render="Label" position="560,625" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="saturnazimuth" render="Label" position="730,625" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="saturnazimuth" render="Label" position="730,625" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="uranusrise" render="Label" position="220,660" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="uranusset" render="Label" position="390,660" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="uranusculmination" render="Label" position="560,660" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="uranusazimuth" render="Label" position="730,660" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="uranusazimuth" render="Label" position="730,660" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="neptunerise" render="Label" position="220,695" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="neptuneset" render="Label" position="390,695" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="neptuneculmination" render="Label" position="560,695" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="neptuneazimuth" render="Label" position="730,695" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="neptuneazimuth" render="Label" position="730,695" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="moonrise" render="Label" position="220,730" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="moonset" render="Label" position="390,730" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="moonculmination" render="Label" position="560,730" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="moondist" render="Label" position="630,835" size="250,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
-			<widget source="moonazimuth" render="Label" position="730,730" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="moonazimuth" render="Label" position="730,730" size="150,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="moonlight" render="Label" position="630,800" size="250,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="moonphase" render="Label" position="280,870" size="600,30" font="Regular; 25" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget name="picmoon" position="100,810" size="90,90" zPosition="2" alphatest="blend" />
@@ -269,36 +269,36 @@ else: #HD
 			<widget source="mercuryrise" render="Label" position="160,310" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="mercuryset" render="Label" position="270,310" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="mercuryculmination" render="Label" position="380,310" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="mercuryazimuth" render="Label" position="490,310" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="mercuryazimuth" render="Label" position="490,310" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="venusset" render="Label" position="270,330" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="venusrise" render="Label" position="160,330" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="venusculmination" render="Label" position="380,330" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="venusazimuth" render="Label" position="490,330" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="venusazimuth" render="Label" position="490,330" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="marsrise" render="Label" position="160,350" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="marsset" render="Label" position="270,350" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="marsculmination" render="Label" position="380,350" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="marsazimuth" render="Label" position="490,350" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="marsazimuth" render="Label" position="490,350" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="jupiterrise" render="Label" position="160,370" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="jupiterset" render="Label" position="270,370" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="jupiterculmination" render="Label" position="380,370" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="jupiterazimuth" render="Label" position="490,370" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="jupiterazimuth" render="Label" position="490,370" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="saturnrise" render="Label" position="160,390" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="saturnset" render="Label" position="270,390" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="saturnculmination" render="Label" position="380,390" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="saturnazimuth" render="Label" position="490,390" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="saturnazimuth" render="Label" position="490,390" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="uranusrise" render="Label" position="160,410" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="uranusset" render="Label" position="270,410" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="uranusculmination" render="Label" position="380,410" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="uranusazimuth" render="Label" position="490,410" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="uranusazimuth" render="Label" position="490,410" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="neptunerise" render="Label" position="160,430" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="neptuneset" render="Label" position="270,430" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="neptuneculmination" render="Label" position="380,430" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
-			<widget source="neptuneazimuth" render="Label" position="490,430" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="neptuneazimuth" render="Label" position="490,430" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="moonrise" render="Label" position="160,450" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="moonset" render="Label" position="270,450" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="moonculmination" render="Label" position="380,450" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
 			<widget source="moondist" render="Label" position="390,540" size="200,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
-			<widget source="moonazimuth" render="Label" position="490,450" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="center" transparent="1" />
+			<widget source="moonazimuth" render="Label" position="490,450" size="100,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="moonlight" render="Label" position="390,520" size="200,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget source="moonphase" render="Label" position="20,580" size="570,25" font="Regular; 20" foregroundColor="#00f4f4f4" backgroundColor="background" halign="right" transparent="1" />
 			<widget name="picmoon" position="50,500" size="90,90" zPosition="2" alphatest="blend" />
